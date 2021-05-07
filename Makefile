@@ -1,4 +1,5 @@
 ROOT := agora.io/rtm-sdk
+NAME := rtm-sdk
 VERSION ?= $(shell git describe --tags --always --dirty)
 DOCKER_LABELS ?= git-describe="$(shell date -u +v%Y%m%d)-$(shell git describe --tags --always --dirty)"
 
@@ -7,6 +8,9 @@ export GOFLAGS := -mod=vendor
 
 REGISTRY ?= hub.agoralab.co/adc/
 BASE_REGISTRY ?=
+
+APP_ID ?=
+USER_ID ?=
 
 GO_VERSION ?= 1.16.4
 BIN_DIR := $(GOPATH)/bin
@@ -50,3 +54,6 @@ container: build-linux
 push: container
 	@echo ">> pushing admin image"
 	@docker push $(REGISTRY)$(NAME):$(VERSION)
+run: container
+	@echo ">> running image"
+	@ docker run --rm -ti $(REGISTRY)$(NAME):$(VERSION)  -APP_ID=$(APP_ID) -USER_ID=$(USER_ID)

@@ -34,12 +34,13 @@ const (
 )
 
 func New(o *OperatorOptions) *operator {
+	rtmService := rtmlib.CreateRtmService()
+	klog.Infof("RTM SDK version:%s", rtmlib.GetRtmSdkVersion())
 	op := &operator{
+		RtmService: rtmService,
 		receivedCh: make(chan *messagePack, receivedChBuf),
 		sendCh:     make(chan string, sendChBuf),
 	}
-	rtmService := rtmlib.CreateRtmService()
-	klog.Infof("RTM SDK version:%s", rtmlib.GetRtmSdkVersion())
 	eventHandler := rtmlib.NewDirectorIRtmServiceEventHandler(op)
 	op.RtmServiceEventHandler = eventHandler
 	rtmService.Initialize(o.AppID, newRtmServiceEventHandlerImpl(eventHandler))
@@ -79,9 +80,9 @@ func (op *operator) handle(msg *messagePack) {
 
 func (op *operator) SendMessageToPeer(to, message string) {
 	reply := op.RtmService.CreateMessage()
+	defer reply.Release()
 	reply.SetText(message)
 	op.RtmService.SendMessageToPeer(to, reply)
-	reply.Release()
 }
 
 func (op *operator) shutdown() {
@@ -111,7 +112,7 @@ func (op *operator) OnLogout(arg2 rtmlib.AgoraRtmLOGOUT_ERR_CODE) {
 }
 
 func (op *operator) OnConnectionStateChanged(arg2 rtmlib.AgoraRtmCONNECTION_STATE, arg3 rtmlib.AgoraRtmCONNECTION_CHANGE_REASON) {
-	klog.Infof("OnConnectionStateChanged,state:%s,reason:%s", arg2, arg3)
+	klog.Infof("OnConnectionStateChanged,state:%d,reason:%d", arg2, arg3)
 }
 
 func (op *operator) OnSendMessageResult(arg2 int64, arg3 rtmlib.AgoraRtmPEER_MESSAGE_ERR_CODE) {
