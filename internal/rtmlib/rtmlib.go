@@ -13,7 +13,7 @@
 package rtmlib
 
 /*
-#cgo LDFLAGS: -L${SRCDIR}  -lagora_rtm_sdk -lwraper
+#cgo LDFLAGS: -L${SRCDIR}  -lagora_rtm_sdk -lwrapper
 #define intgo swig_intgo
 typedef void *swig_voidp;
 

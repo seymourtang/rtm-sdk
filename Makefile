@@ -26,7 +26,7 @@ wrapper:
    		-w /go/src/$(ROOT)/internal/rtmlib                                                             \
    	  	gcc:10                       \
         	/bin/bash -c ' g++ -std=c++11  -shared  -fPIC -I.  \
-        	-o libwraper.so  lib_wrap.cxx  -L. -lagora_rtm_sdk '  \
+        	-o libwrapper.so  lib_wrap.cxx  -L. -lagora_rtm_sdk '  \
 
 
 
