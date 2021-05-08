@@ -52,7 +52,7 @@ container: build-linux
 	@docker build -t $(REGISTRY)$(NAME):$(VERSION) --label $(DOCKER_LABELS)  -f $(BUILD_DIR)/Dockerfile .
 
 push: container
-	@echo ">> pushing admin image"
+	@echo ">> pushing image"
 	@docker push $(REGISTRY)$(NAME):$(VERSION)
 run: container
 	@echo ">> running image"
