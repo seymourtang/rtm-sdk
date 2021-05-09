@@ -7,7 +7,7 @@ import (
 
 	"k8s.io/klog/v2"
 
-	"seymourtang/rtm-sdk/pkg/rtmlib"
+	"github.com/seymourtang/rtm-sdk/pkg/rtmlib"
 )
 
 type OperatorOptions struct {

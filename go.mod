@@ -1,4 +1,4 @@
-module seymourtang/rtm-sdk
+module github.com/seymourtang/rtm-sdk
 
 go 1.16
 
