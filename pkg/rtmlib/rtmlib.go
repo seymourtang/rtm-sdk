@@ -8,7 +8,7 @@
  * interface file instead.
  * ----------------------------------------------------------------------------- */
 
-// source: ./internal/rtmlib/lib.i
+// source: ./pkg/rtmlib/lib.i
 
 package rtmlib
 
